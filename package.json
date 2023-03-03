@@ -1,0 +1,31 @@
+{
+  "name": "@kleinweb/kleinweb-headless-theme",
+  "version": "2.0.0",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "author": {
+    "name": "Klein College of Media and Communication",
+    "email": "kleinweb@temple.edu",
+    "url": "https://github.com/kleinweb"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kleinweb/fuxt-backend"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": { },
+  "dependencies": {
+    "dotenv": "16.0.3",
+    "dotenv-cli": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.2",
+    "@types/prettier": "^2.7.2",
+    "eslint": "^8.35.0",
+    "prettier": "^2.8.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  }
+}
