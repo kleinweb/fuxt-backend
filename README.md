@@ -1,4 +1,4 @@
-# kleinweb-backend
+# KleinHeadlessBackend
 
 A low-code/no-code theme that turns WordPress into a true GraphQL powered Headless CMS. Optimized for the [kleinweb frontend boilerplate](https://github.com/funkhaus/kleinweb).
 
@@ -74,4 +74,4 @@ Please see the documentation for [Klein](https://github.com/funkhaus/kleinweb) t
 
 ## TODO
 
--   Document the plugins that get auto-installed
+- Document the plugins that get auto-installed

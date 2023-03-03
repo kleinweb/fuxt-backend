@@ -30,7 +30,14 @@
           modules = [
             {
               # https://devenv.sh/reference/options/
-              packages = [pkgs.nodePackages.pnpm pkgs.phpPackages.composer pkgs.alejandra];
+              packages = [
+                pkgs.alejandra
+                pkgs.fd
+                pkgs.ripgrep
+                pkgs.nodePackages.pnpm
+                pkgs.php80
+                pkgs.php80Packages.composer
+              ];
             }
           ];
         };

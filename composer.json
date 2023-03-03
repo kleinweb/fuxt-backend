@@ -44,10 +44,11 @@
   "prefer-stable": true,
   "scripts": {
     "lint": [
-      "phpcs --extensions=php --standard=./phpcs.xml src"
+      "fd -e php -X phpcs --standard=./phpcs.xml.dist"
     ],
     "fix": [
-      "pint src"
+      "fd -e php -X phpcbf --standard=./phpcs.xml.dist",
+      "pint ."
     ]
   }
 }

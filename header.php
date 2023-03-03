@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Empty header
  *
- * @package kleinweb-backend
+ * @package KleinHeadlessBackend
  */
