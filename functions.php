@@ -5,7 +5,7 @@
  * @package kleinweb-backend
  */
 
-define( 'KLEINWEB_VERSION', wp_get_theme( 'kleinweb-backend' )->get( 'Version' ) );
+define('KLEINWEB_VERSION', wp_get_theme('kleinweb-backend')->get('Version'));
 
 /**
  * Load all modules.
