@@ -32,7 +32,13 @@ body:not(.is-developer) #adminmenu #toplevel_page_wp-graphql-gutenberg-admin {
   display: none;
 }
 
-/* Turn off preview links */
+/*
+ * Turn off preview links for fresh posts without URLs because they have not yet
+ * been auto-saved.
+ *
+ * Note that this has been a long-running issue with eager content editors and
+ * WordPress post previews -- it is not limited to headless sites.
+ */
 body.post-new-php.no-slug #preview-action,
 body.post-php.no-slug #preview-action {
   display: none;
@@ -41,6 +47,7 @@ body.post-php.no-slug #preview-action {
   display: none;
 }
 
+/* Hide the "Comments" menu item. */
 #menu-comments {
   display: none;
 }
