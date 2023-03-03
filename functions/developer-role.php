@@ -2,7 +2,7 @@
 /**
  * Handles Developer role.
  *
- * @package fuxt-backend
+ * @package kleinweb-backend
  */
 
 /**
@@ -14,7 +14,7 @@ function custom_add_developer_role() {
 	$role       = isset( $wp_roles ) ? $wp_roles : new WP_Roles();
 	$admin_role = $role->get_role( 'administrator' );
 
-	add_role( 'developer', __( 'Developer', 'fuxt' ), $admin_role->capabilities );
+	add_role( 'developer', __( 'Developer', 'kleinweb' ), $admin_role->capabilities );
 
 	// Set initial user to Developer
 	$user = new WP_User( 1 );

@@ -2,10 +2,10 @@
 /**
  * This file is the main entry point for WordPress functions.
  *
- * @package fuxt-backend
+ * @package kleinweb-backend
  */
 
-define( 'FUXT_VERSION', wp_get_theme( 'fuxt-backend' )->get( 'Version' ) );
+define( 'KLEINWEB_VERSION', wp_get_theme( 'kleinweb-backend' )->get( 'Version' ) );
 
 /**
  * Load all modules.

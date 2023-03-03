@@ -2,7 +2,7 @@
 /**
  * Any changes to setup the theme (images, menus) go in here.
  *
- * @package fuxt-backend
+ * @package kleinweb-backend
  */
 
 /**

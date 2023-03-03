@@ -2,7 +2,7 @@
 /**
  * Misc Graph QL functions, mostly filters used to extend the Schema
  *
- * @package fuxt-backend
+ * @package kleinweb-backend
  */
 
 /**
@@ -15,7 +15,7 @@ function whitelist_settings() {
 		'themeScreenshotUrl',
 		array(
 			'type'        => 'String',
-			'description' => __( 'URL to the active theme screenshot', 'fuxt' ),
+			'description' => __( 'URL to the active theme screenshot', 'kleinweb' ),
 			'resolve'     => function ( $root, $args, $context, $info ) {
 				$theme = wp_get_theme();
 				$url   = '';
@@ -33,7 +33,7 @@ function whitelist_settings() {
 		'backendUrl',
 		array(
 			'type'        => 'String',
-			'description' => __( 'WordPress Address (URL)', 'fuxt' ),
+			'description' => __( 'WordPress Address (URL)', 'kleinweb' ),
 			'resolve'     => function ( $root, $args, $context, $info ) {
 				return get_site_url();
 			},
@@ -44,7 +44,7 @@ function whitelist_settings() {
 		'frontendUrl',
 		array(
 			'type'        => 'String',
-			'description' => __( 'Site Address (URL)', 'fuxt' ),
+			'description' => __( 'Site Address (URL)', 'kleinweb' ),
 			'resolve'     => function ( $root, $args, $context, $info ) {
 				return get_home_url();
 			},
@@ -57,7 +57,7 @@ add_action( 'graphql_init', 'whitelist_settings', 1 );
  * Give media items a `html` field that outputs the SVG element or an IMG element.
  * SEE https://github.com/wp-graphql/wp-graphql/issues/1035
  */
-function fuxt_add_media_element() {
+function kleinweb_add_media_element() {
 	// Add content field for media item
 	register_graphql_field(
 		'mediaItem',
@@ -86,7 +86,7 @@ function fuxt_add_media_element() {
 		)
 	);
 }
-add_action( 'graphql_register_types', 'fuxt_add_media_element' );
+add_action( 'graphql_register_types', 'kleinweb_add_media_element' );
 
 /**
  * Give each content node a field of HTML encoded to play nicely with wp-content Vue component
@@ -147,13 +147,13 @@ function set_wpgql_cors_response_headers( $headers ) {
 			site_url(),
 		);
 
-		// Add fuxt home url to allowed origin.
-		$fuxt_home_url = get_option( 'fuxt_home_url' );
-		if ( $fuxt_home_url ) {
-			$allowed_origins[] = $fuxt_home_url;
+		// Add kleinweb home url to allowed origin.
+		$kleinweb_home_url = get_option( 'kleinweb_home_url' );
+		if ( $kleinweb_home_url ) {
+			$allowed_origins[] = $kleinweb_home_url;
 		}
 
-		$allowed_origins = apply_filters( 'fuxt_allowed_origins', $allowed_origins );
+		$allowed_origins = apply_filters( 'kleinweb_allowed_origins', $allowed_origins );
 
 		// Consider localhost case.
 		$parsed_origin = wp_parse_url( $origin );
@@ -194,12 +194,12 @@ function restrict_gql_endpoint_cors_settings_field() {
 		'name'    => $name,
 		'section' => $section,
 		'value'   => $value,
-		'desc'    => __( 'Restrict GraphQL endpoint access to localhost, Site URL and Home URLs only', 'fuxt' ),
+		'desc'    => __( 'Restrict GraphQL endpoint access to localhost, Site URL and Home URLs only', 'kleinweb' ),
 	);
 
 	add_settings_field(
 		"{$section}[{$name}]",
-		__( 'Restrict GraphQL endpoint access to localhost, Site URL and Home URLs only', 'fuxt' ),
+		__( 'Restrict GraphQL endpoint access to localhost, Site URL and Home URLs only', 'kleinweb' ),
 		'restrict_gql_endpoint_cors_field',
 		$section,
 		$section,
@@ -244,7 +244,7 @@ function gql_register_next_post() {
 						'node' => array(
 							'description' => __(
 								'The node of the next item',
-								'fuxt'
+								'kleinweb'
 							),
 							'type'        => $ucfirst,
 							'resolve'     => function ( $post_id, $args, $context ) {
@@ -266,30 +266,30 @@ function gql_register_next_post() {
 					'type'        => 'Next' . $ucfirst . 'Edge',
 					'description' => __(
 						'The next post of the current port',
-						'fuxt'
+						'kleinweb'
 					),
 					'args'	=> array(
 						'inSameTerm'    => array(
 							'type'        => 'Boolean',
-							'description' => __( 'Whether post should be in a same taxonomy term. Default value: false', 'fuxt' ),
+							'description' => __( 'Whether post should be in a same taxonomy term. Default value: false', 'kleinweb' ),
 							'default'     => false,
 						),
 						'taxonomy'      => array(
 							'type'        => 'String',
-							'description' => __( 'Taxonomy, if inSameTerm is true', 'fuxt' ),
+							'description' => __( 'Taxonomy, if inSameTerm is true', 'kleinweb' ),
 							'default'	=> 'category'
 						),
 						'termNotIn'     => array(
 							'type'        => 'String',
-							'description' => __( 'Comma-separated list of excluded term IDs.', 'fuxt' ),
+							'description' => __( 'Comma-separated list of excluded term IDs.', 'kleinweb' ),
 						),
 						'termSlugNotIn' => array(
 							'type'        => 'String',
-							'description' => __( 'Comma-separated list of excluded term slugs.', 'fuxt' ),
+							'description' => __( 'Comma-separated list of excluded term slugs.', 'kleinweb' ),
 						),
 						'loop'    => array(
 							'type'        => 'Boolean',
-							'description' => __( 'Whether to return boundary post if on first or last. Default value: true', 'fuxt' ),
+							'description' => __( 'Whether to return boundary post if on first or last. Default value: true', 'kleinweb' ),
 							'default'     => true,
 						),						
 					),
@@ -300,7 +300,7 @@ function gql_register_next_post() {
 						$is_is_post_type_hierarchical = is_post_type_hierarchical($post_type);	
 						
 						if($is_is_post_type_hierarchical) {
-							return fuxt_get_next_prev_page($post, true, $loop);							
+							return kleinweb_get_next_prev_page($post, true, $loop);							
 						}
 
 						// Assuming is a "post" type now
@@ -308,7 +308,7 @@ function gql_register_next_post() {
 						$taxonomy = $args['taxonomy'] ?? 'category';
 						$excluded_term_ids = $args['termNotIn'] ?? '';
 						$excluded_term_slugs = $args['termSlugNotIn'] ?? '';
-						return fuxt_get_next_prev_post($post, true, $loop, $in_same_term, $excluded_term_ids, $excluded_term_slugs, $taxonomy);
+						return kleinweb_get_next_prev_post($post, true, $loop, $in_same_term, $excluded_term_ids, $excluded_term_slugs, $taxonomy);
 					},
 				)
 			);
@@ -338,7 +338,7 @@ function gql_register_previous_post() {
 						'node' => array(
 							'description' => __(
 								'The node of the previous item',
-								'fuxt'
+								'kleinweb'
 							),
 							'type'        => $ucfirst,
 							'resolve'     => function ( $post_id, $args, $context ) {
@@ -360,30 +360,30 @@ function gql_register_previous_post() {
 					'type'        => 'Previous' . $ucfirst . 'Edge',
 					'description' => __(
 						'The previous post of the current post',
-						'fuxt'
+						'kleinweb'
 					),
 					'args' => array(
 						'inSameTerm'    => array(
 							'type'        => 'Boolean',
-							'description' => __( 'Whether post should be in a same taxonomy term. Default value: false', 'fuxt' ),
+							'description' => __( 'Whether post should be in a same taxonomy term. Default value: false', 'kleinweb' ),
 							'default'     => false,
 						),
 						'taxonomy'      => array(
 							'type'        => 'String',
-							'description' => __( 'Taxonomy, if inSameTerm is true', 'fuxt' ),
+							'description' => __( 'Taxonomy, if inSameTerm is true', 'kleinweb' ),
 							'default'	=> 'category'
 						),
 						'termNotIn'     => array(
 							'type'        => 'String',
-							'description' => __( 'Comma-separated list of excluded term IDs.', 'fuxt' ),
+							'description' => __( 'Comma-separated list of excluded term IDs.', 'kleinweb' ),
 						),
 						'termSlugNotIn' => array(
 							'type'        => 'String',
-							'description' => __( 'Comma-separated list of excluded term slugs.', 'fuxt' ),
+							'description' => __( 'Comma-separated list of excluded term slugs.', 'kleinweb' ),
 						),
 						'loop'    => array(
 							'type'        => 'Boolean',
-							'description' => __( 'Whether to return boundary post if on first or last. Default value: true', 'fuxt' ),
+							'description' => __( 'Whether to return boundary post if on first or last. Default value: true', 'kleinweb' ),
 							'default'     => true,
 						),						
 					),
@@ -394,7 +394,7 @@ function gql_register_previous_post() {
 						$is_is_post_type_hierarchical = is_post_type_hierarchical($post_type);	
 						
 						if($is_is_post_type_hierarchical) {
-							return fuxt_get_next_prev_page($post, false, $loop);
+							return kleinweb_get_next_prev_page($post, false, $loop);
 						}
 
 						// Assuming is a "post" type now
@@ -402,7 +402,7 @@ function gql_register_previous_post() {
 						$taxonomy = $args['taxonomy'] ?? 'category';
 						$excluded_term_ids = $args['termNotIn'] ?? '';
 						$excluded_term_slugs = $args['termSlugNotIn'] ?? '';
-						return fuxt_get_next_prev_post($post, false, $loop, $in_same_term, $excluded_term_ids, $excluded_term_slugs, $taxonomy);
+						return kleinweb_get_next_prev_post($post, false, $loop, $in_same_term, $excluded_term_ids, $excluded_term_slugs, $taxonomy);
 					},
 				)
 			);
@@ -415,7 +415,7 @@ add_action( 'graphql_register_types', 'gql_register_previous_post' );
 /**
  * Get the next/previous hierarchical post type (eg: Pages)
  */
-function fuxt_get_next_prev_page($post, $is_next = true, $loop = true) {
+function kleinweb_get_next_prev_page($post, $is_next = true, $loop = true) {
 	// Get all siblings pages
 	// Yes this is isn't effienct to query all pages, 
 	// but actually it works well for thousands of pages in practice. 
@@ -466,7 +466,7 @@ function fuxt_get_next_prev_page($post, $is_next = true, $loop = true) {
 /**
  * Get the next/previous date-based post type (eg: Posts)
  */
-function fuxt_get_next_prev_post(
+function kleinweb_get_next_prev_post(
 	$post, 
 	$is_next = true, 
 	$loop = true, 

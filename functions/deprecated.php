@@ -2,7 +2,7 @@
 /**
  * Deprecated code
  *
- * @package fuxt-backend
+ * @package kleinweb-backend
  */
 
 /**
@@ -24,7 +24,7 @@ function add_theme_caps() {
  * SEE https://www.advancedcustomfields.com/resources/blocks/
  * SEE https://www.advancedcustomfields.com/resources/acf_register_block_type/
  */
-function fuxt_custom_blocks() {
+function kleinweb_custom_blocks() {
 
 	// Abort early if custom blocks not supported (not ACF Pro).
 	if ( ! function_exists( 'acf_register_block_type' ) ) {
@@ -46,7 +46,7 @@ function fuxt_custom_blocks() {
 	);
 
 }
-//add_action( 'acf/init', 'fuxt_custom_blocks' );
+//add_action( 'acf/init', 'kleinweb_custom_blocks' );
 
 /**
  * Extend GraphQL to add a mutation to send emails via the wp_mail() function.

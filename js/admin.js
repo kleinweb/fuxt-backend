@@ -1,6 +1,6 @@
 /* eslint-disable */
-var fuxtAdmin = {
-    enabledHomeUrlEdit: function() {
+var kleinwebAdmin = {
+    enabledHomeUrlEdit: function () {
         // This function enables the setting the home URL field that Flywheel disables
         jQuery('input#home')
             .prop('readonly', false)
@@ -13,12 +13,12 @@ var fuxtAdmin = {
                 "<p class='description'>Enter the primary front end URL.</p>"
             )
     },
-    showAttachmentIds: function() {
+    showAttachmentIds: function () {
         // Show the attachment IDs on hover of attachment grid blocks
         jQuery(document).on(
             'mouseenter',
             '.media-modal .attachment, .media-frame .attachment',
-            function() {
+            function () {
                 var id = jQuery(this).data('id')
                 if (id) {
                     jQuery(this).attr('title', 'Attachment ID: ' + id)
@@ -26,13 +26,13 @@ var fuxtAdmin = {
             }
         )
     },
-    shiftClickNestedPages: function() {
+    shiftClickNestedPages: function () {
         // Enable shift-clicking on NestedPages admin lists
         var lastChecked = null
         jQuery('#wpbody-content').on(
             'click',
             ".nestedpages .np-bulk-checkbox input[type='checkbox']",
-            function(e) {
+            function (e) {
                 // Abort if first click
                 if (!lastChecked) {
                     lastChecked = this
@@ -51,24 +51,24 @@ var fuxtAdmin = {
                         .prop('checked', lastChecked.checked)
                 }
 
-                lastChecked = this;
+                lastChecked = this
             }
         )
     },
-    removeUnusedBlocks: function() {
+    removeUnusedBlocks: function () {
         // This functions removes some blocks from the Gutenberg editor.
         // SEE: https://wordpress.stackexchange.com/questions/379612/how-to-remove-the-core-embed-blocks-in-wordpress-5-6
 
-        if (typeof wp.domReady == "undefined") { 
-            return;
-        }        
+        if (typeof wp.domReady == 'undefined') {
+            return
+        }
 
-        wp.domReady(function() {
+        wp.domReady(function () {
             let allowedEmbedBlocks = ['vimeo', 'youtube']
-            if (fuxtAdmin.isGutenbergActive())
+            if (kleinwebAdmin.isGutenbergActive())
                 wp.blocks
                     .getBlockVariations('core/embed')
-                    .forEach(function(blockVariation) {
+                    .forEach(function (blockVariation) {
                         if (
                             -1 ===
                             allowedEmbedBlocks.indexOf(blockVariation.name)
@@ -81,17 +81,17 @@ var fuxtAdmin = {
                     })
         })
     },
-    isGutenbergActive: function() {
-        return typeof wp !== 'undefined' && typeof wp.blocks !== 'undefined';
-    }
+    isGutenbergActive: function () {
+        return typeof wp !== 'undefined' && typeof wp.blocks !== 'undefined'
+    },
 }
-jQuery(document).ready(function() {
-    fuxtAdmin.showAttachmentIds()
-    fuxtAdmin.shiftClickNestedPages()
-    fuxtAdmin.removeUnusedBlocks()
+jQuery(document).ready(function () {
+    kleinwebAdmin.showAttachmentIds()
+    kleinwebAdmin.shiftClickNestedPages()
+    kleinwebAdmin.removeUnusedBlocks()
 })
-jQuery(window).load(function() {
+jQuery(window).load(function () {
     if (jQuery('body').hasClass('options-general-php')) {
-        fuxtAdmin.enabledHomeUrlEdit()
+        kleinwebAdmin.enabledHomeUrlEdit()
     }
 })

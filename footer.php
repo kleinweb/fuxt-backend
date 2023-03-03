@@ -2,5 +2,5 @@
 /**
  * Empty footer
  *
- * @package fuxt-backend
+ * @package kleinweb-backend
  */

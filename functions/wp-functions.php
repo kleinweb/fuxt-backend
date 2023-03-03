@@ -2,7 +2,7 @@
 /**
  * Misc WordPress functions.
  *
- * @package fuxt-backend
+ * @package kleinweb-backend
  */
 
 /**
@@ -37,7 +37,7 @@ add_action( 'after_setup_theme', 'custom_theme_setup' );
  * Enqueue custom Admin Scripts
  */
 function custom_admin_scripts() {
-	wp_enqueue_script( 'fuxt-admin', get_template_directory_uri() . '/js/admin.js', array( 'jquery' ), '1.1', true );
+	wp_enqueue_script( 'kleinweb-admin', get_template_directory_uri() . '/js/admin.js', array( 'jquery' ), '1.1', true );
 }
 add_action( 'admin_enqueue_scripts', 'custom_admin_scripts' );
 
@@ -73,7 +73,7 @@ function custom_loginpage_styles() {
 		'login_css',
 		get_template_directory_uri() . '/css/login.css',
 		null,
-		FUXT_VERSION
+		KLEINWEB_VERSION
 	);
 }
 add_action( 'login_head', 'custom_loginpage_styles' );
@@ -86,7 +86,7 @@ function custom_admin_styles() {
 		'admin-stylesheet',
 		get_template_directory_uri() . '/css/admin.css',
 		null,
-		FUXT_VERSION
+		KLEINWEB_VERSION
 	);
 }
 add_action( 'admin_print_styles', 'custom_admin_styles' );
@@ -140,10 +140,10 @@ add_filter( 'excerpt_more', 'custom_excerpt_ellipsis' );
  * @param int $length Default length.
  * @return int
  */
-function fuxt_custom_excerpt_length( $length ) {
+function kleinweb_custom_excerpt_length( $length ) {
 	return 20;
 }
-add_filter( 'excerpt_length', 'fuxt_custom_excerpt_length', 99 );
+add_filter( 'excerpt_length', 'kleinweb_custom_excerpt_length', 99 );
 
 /**
  * Prevent Google from indexing any PHP generated part of the API.
@@ -197,15 +197,15 @@ add_filter( 'preview_post_link', 'add_custom_preview_link', 10, 2 );
  * @param \WP_Post          $post     Post object.
  * @return \WP_REST_Response
  */
-function fuxt_preview_link_in_rest_response( $response, $post ) {
+function kleinweb_preview_link_in_rest_response( $response, $post ) {
 	if ( 'draft' === $post->post_status ) {
 		$response->data['link'] = get_preview_post_link( $post );
 	}
 
 	return $response;
 }
-add_filter( 'rest_prepare_post', 'fuxt_preview_link_in_rest_response', 10, 2 );
-add_filter( 'rest_prepare_page', 'fuxt_preview_link_in_rest_response', 10, 2 );
+add_filter( 'rest_prepare_post', 'kleinweb_preview_link_in_rest_response', 10, 2 );
+add_filter( 'rest_prepare_page', 'kleinweb_preview_link_in_rest_response', 10, 2 );
 
 /**
  * This function auto saves drafts posts, to force them to get a URL for previews to work.
@@ -263,7 +263,7 @@ add_action( 'save_post', 'auto_set_post_status', 13, 3 );
 /**
  * Polyfill functions to not throw errors on ACF import
  */
-function fuxt_polyfill_functions() {
+function kleinweb_polyfill_functions() {
 	if ( ! function_exists( 'cp_purge_cache' ) ) {
 		// phpcs:ignore
 		function cp_purge_cache(){}
@@ -273,7 +273,7 @@ function fuxt_polyfill_functions() {
 		function nd_debounce_deploy(){}
 	}
 }
-add_action( 'wp_dashboard_setup', 'fuxt_polyfill_functions' );
+add_action( 'wp_dashboard_setup', 'kleinweb_polyfill_functions' );
 
 /**
  * Set permlinks on theme activate
@@ -316,41 +316,41 @@ function filter_oembed_attributes( $return, $data, $url ) {
 add_filter( 'oembed_dataparse', 'filter_oembed_attributes', 10, 4 );
 
 /**
- * Update fuxt_home_url option when Site Address(home) is updated.
+ * Update kleinweb_home_url option when Site Address(home) is updated.
  * Normally you'd use `update_option_home` here but I guess Flywheel disabled.
  *
  * @param string $option    Name of the option to update.
  * @param mixed  $old_value The old option value.
  * @param mixed  $new_value The new option value.
  */
-function fuxt_update_home_url( $option, $old_value, $new_value ) {
+function kleinweb_update_home_url( $option, $old_value, $new_value ) {
 	// phpcs:ignore WordPress.Security.NonceVerification.Missing
 	if ( ! empty( $_POST['home'] ) ) {
 		// Remove filter to not cause infinte loop
-		remove_action( 'update_option', 'fuxt_update_home_url', 20, 3 );
+		remove_action( 'update_option', 'kleinweb_update_home_url', 20, 3 );
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		update_option( 'fuxt_home_url ', $_POST['home'], true );
+		update_option( 'kleinweb_home_url ', $_POST['home'], true );
 	}
 }
-add_action( 'update_option', 'fuxt_update_home_url', 20, 3 );
+add_action( 'update_option', 'kleinweb_update_home_url', 20, 3 );
 
 /**
- * Return the fuxt_home_url value when code requests the Site Address (URL)
+ * Return the kleinweb_home_url value when code requests the Site Address (URL)
  *
  * @param string      $url         The complete home URL including scheme and path.
  * @param string      $path        Path relative to the home URL. Blank string if no path is specified.
  * @param string|null $orig_scheme Scheme to give the home URL context. Accepts 'http', 'https', 'relative', 'rest', or null.
  * @return string
  */
-function fuxt_get_home_url( $url, $path, $orig_scheme ) {
+function kleinweb_get_home_url( $url, $path, $orig_scheme ) {
 	if ( 'rest' !== $orig_scheme ) {
-		$fuxt_home_url = get_option( 'fuxt_home_url' );
+		$kleinweb_home_url = get_option( 'kleinweb_home_url' );
 	} else {
-		$fuxt_home_url = get_option( 'siteurl' );
+		$kleinweb_home_url = get_option( 'siteurl' );
 	}
 
-	if ( ! empty( $fuxt_home_url ) ) {
-		$url = untrailingslashit( $fuxt_home_url );
+	if ( ! empty( $kleinweb_home_url ) ) {
+		$url = untrailingslashit( $kleinweb_home_url );
 
 		if ( $path && is_string( $path ) ) {
 			$url .= '/' . ltrim( $path, '/' );
@@ -359,22 +359,22 @@ function fuxt_get_home_url( $url, $path, $orig_scheme ) {
 
 	return $url;
 }
-add_filter( 'home_url', 'fuxt_get_home_url', 99, 3 );
+add_filter( 'home_url', 'kleinweb_get_home_url', 99, 3 );
 
 /**
- * Update the Site Address value in General Settings panel to return fuxt override
+ * Update the Site Address value in General Settings panel to return kleinweb override
  *
  * @param string $value Site address value.
  * @return string
  */
-function fuxt_filter_home_option( $value ) {
+function kleinweb_filter_home_option( $value ) {
 	global $pagenow;
 	if ( $pagenow === 'options-general.php' ) {
-		$value = get_option( 'fuxt_home_url' );
+		$value = get_option( 'kleinweb_home_url' );
 	}
 	return $value;
 }
-add_filter( 'option_home', 'fuxt_filter_home_option', 99, 1 );
+add_filter( 'option_home', 'kleinweb_filter_home_option', 99, 1 );
 
 /**
  * Whitelist siteurl for wp_safe_redirect.
@@ -382,8 +382,8 @@ add_filter( 'option_home', 'fuxt_filter_home_option', 99, 1 );
  * @param string[] $hosts An array of allowed host names.
  * @return string[]
  */
-function fuxt_allow_siteurl_safe_redirect( $hosts ) {
+function kleinweb_allow_siteurl_safe_redirect( $hosts ) {
 	$wpp = wp_parse_url( site_url() );
 	return array_merge( $hosts, array( $wpp['host'] ) );
 }
-add_filter( 'allowed_redirect_hosts', 'fuxt_allow_siteurl_safe_redirect' );
+add_filter( 'allowed_redirect_hosts', 'kleinweb_allow_siteurl_safe_redirect' );

@@ -2,5 +2,5 @@
 /**
  * Empty header
  *
- * @package fuxt-backend
+ * @package kleinweb-backend
  */

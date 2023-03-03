@@ -2,10 +2,10 @@
 /**
  * ACF custom location rules for Custom Post Types.
  *
- * @package fuxt-backend
+ * @package kleinweb-backend
  */
 
-namespace FuxtBackend;
+namespace KleinBackend;
 
 /**
  * ACF rules for custom post type
@@ -17,7 +17,7 @@ class Acf {
 	 *
 	 * @var string
 	 */
-	private $prefix = 'fuxt';
+	private $prefix = 'kleinweb';
 
 	/**
 	 * Custom location rule "CPT Parent" surfix.
