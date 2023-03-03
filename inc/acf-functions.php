@@ -5,10 +5,10 @@ declare(strict_types=1);
 /**
  * ACF custom location rules for Custom Post Types.
  *
- * @package KleinHeadlessBackend
+ * @package KleinBackend
  */
 
-namespace KleinBackend;
+namespace Klein\Backend;
 
 /**
  * ACF rules for custom post type
@@ -454,7 +454,7 @@ class Acf
      * Adds a hover state to Relationship selectors that shows the URI.
      *
      * @param string  $text The text displayed for this post (the post title).
-     * @param \KleinBackend\WP_Post $post The Relationship.
+     * @param \WP_Post $post The Relationship.
      * @return string
      */
     public function acf_fields_relationship_result($text, $post)

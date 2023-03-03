@@ -5,57 +5,8 @@ declare(strict_types=1);
 /**
  * Misc Graph QL functions, mostly filters used to extend the Schema
  *
- * @package KleinHeadlessBackend
+ * @package KleinBackend
  */
-
-/**
- * Expose general settings() to WP-GQL API
- */
-function whitelist_settings()
-{
-    // Define a field to get Theme screenshot URL
-    register_graphql_field(
-        'GeneralSettings',
-        'themeScreenshotUrl',
-        [
-            'type' => 'String',
-            'description' => __('URL to the active theme screenshot', 'kleinweb'),
-            'resolve' => static function ($root, $args, $context, $info) {
-                $theme = wp_get_theme();
-                $url = '';
-                if ($theme->screenshot) {
-                    $url = get_theme_file_uri($theme->screenshot);
-                }
-                return $url;
-            },
-        ]
-    );
-
-    // Define a fields to get both WordPress URLs
-    register_graphql_field(
-        'GeneralSettings',
-        'backendUrl',
-        [
-            'type' => 'String',
-            'description' => __('WordPress Address (URL)', 'kleinweb'),
-            'resolve' => static function ($root, $args, $context, $info) {
-                return get_site_url();
-            },
-        ]
-    );
-    register_graphql_field(
-        'GeneralSettings',
-        'frontendUrl',
-        [
-            'type' => 'String',
-            'description' => __('Site Address (URL)', 'kleinweb'),
-            'resolve' => static function ($root, $args, $context, $info) {
-                return get_home_url();
-            },
-        ]
-    );
-}
-add_action('graphql_init', 'whitelist_settings', 1);
 
 /**
  * Give media items a `html` field that outputs the SVG element or an IMG element.
@@ -115,7 +66,7 @@ function add_encoded_content_field()
 add_action('graphql_register_types', 'add_encoded_content_field');
 
 /**
- * Make menus publicly accessible.
+ * Make all menus publicly accessible regardless of whether they are assigned to a location.
  *
  * @param bool   $is_private   If the data is private.
  * @param string $model_name   Name of the model the filter is currently being executed in.
@@ -131,7 +82,10 @@ function enable_public_menus($is_private, $model_name)
 add_filter('graphql_data_is_private', 'enable_public_menus', 10, 2);
 
 /**
- * This allows any frontend domain to access the GQL endpoint. This mirros how WP-JSON API works.
+ * Allow any frontend domain to access the GQL endpoint.
+ *
+ * This mirrors how the WP REST API works.
+ *
  * SEE https://developer.wordpress.org/reference/functions/rest_send_cors_headers/
  * SEE https://github.com/funkhaus/wp-graphql-cors/blob/master/includes/process-request.php
  *

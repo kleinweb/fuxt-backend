@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Cookie management.
  *
- * @package KleinHeadlessBackend
+ * @package KleinBackend
  */
 
 define('KLEINWEB_COOKIE_SETTING_SAMESITE', 'kleinweb_cookie_samesite');

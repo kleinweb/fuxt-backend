@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Handles Developer role.
  *
- * @package KleinHeadlessBackend
+ * @package KleinBackend
  */
 
 /**
@@ -25,7 +25,7 @@ function custom_add_developer_role()
     $user->set_role('developer');
     $user->add_role('administrator');
 }
-add_action('after_switch_theme', 'custom_add_developer_role');
+add_action("activate_${KLEINWEB_BACKEND_PLUGIN_NAME}", 'custom_add_developer_role');
 
 /**
  * Prevent non-dev from deleting locked pages/posts.

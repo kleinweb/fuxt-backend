@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Misc WordPress functions.
  *
- * @package KleinHeadlessBackend
+ * @package KleinBackend
  */
 
 /**
@@ -82,7 +82,7 @@ function custom_loginpage_styles()
         'login_css',
         get_template_directory_uri() . '/css/login.css',
         null,
-        KLEINWEB_VERSION
+        KLEINWEB_BACKEND_PLUGIN_VERSION
     );
 }
 add_action('login_head', 'custom_loginpage_styles');
@@ -96,7 +96,7 @@ function custom_admin_styles()
         'admin-stylesheet',
         get_template_directory_uri() . '/css/admin.css',
         null,
-        KLEINWEB_VERSION
+        KLEINWEB_BACKEND_PLUGIN_VERSION
     );
 }
 add_action('admin_print_styles', 'custom_admin_styles');
@@ -192,6 +192,7 @@ function add_custom_preview_link($link, $post)
         }
 
         $link = get_sample_permalink($post->ID)[0] ?? '';
+        // FIXME: does this work with custom post types?
         $link = str_replace(
             [ '%postname%', '%pagename%' ],
             $post->post_name,
@@ -324,7 +325,7 @@ function set_custom_permalinks()
     $wp_rewrite->set_category_base('/news/c/');
     $wp_rewrite->flush_rules(true);
 }
-add_action('after_switch_theme', 'set_custom_permalinks');
+add_action("activate_${KLEINWEB_BACKEND_PLUGIN_NAME}", 'set_custom_permalinks');
 
 /**
  * Strip quotes from oEmbed title html attributes
@@ -340,7 +341,7 @@ function filter_oembed_attributes($return, $data, $url)
     $return = preg_replace('/title="[\\s\\S]*?"/', '', $return);
 
     // Strip quotes from title
-    $title = str_replace('"', '', $data->title || '');
+    $title = str_replace('"', '', $data->title ?: '');
 
     return str_replace('<iframe', '<iframe title="' . $title . '"', $return);
 }

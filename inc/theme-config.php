@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Any changes to setup the theme (images, menus) go in here.
  *
- * @package KleinHeadlessBackend
+ * @package KleinBackend
  */
 
 /**

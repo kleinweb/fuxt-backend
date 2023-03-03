@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Override default WordPress features.
  *
- * @package KleinHeadlessBackend
+ * @package KleinBackend
  */
 
 /**

@@ -1,6 +1,6 @@
 {
-  "name": "kleinweb/kleinweb-headless-theme",
-  "type": "wordpress-theme",
+  "name": "kleinweb/kleinweb-backend",
+  "type": "wordpress-plugin",
   "license": "GPL-3.0-or-later",
   "homepage": "https://github.com/kleinweb/logan-center",
   "authors": [

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Credit Block Template.
  *
- * @package KleinHeadlessBackend
+ * @package KleinBackend
  *
  * @param   array $block The block settings and attributes.
  * @param   string $content The block inner HTML (empty).

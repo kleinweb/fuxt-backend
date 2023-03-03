@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Extends WP-Gutenberg-GraphQL function.
  *
- * @package KleinHeadlessBackend
+ * @package KleinBackend
  */
 
 /**
@@ -30,17 +30,11 @@ function kleinweb_block_whitelist($allowed_block_types)
         'core/paragraph',
         'core/image',
         'core/heading',
-        'core/gallery',
         'core/list',
         'core/list-item',
         'core/quote',
-        'core/columns',
-        'core/column',
         'core/embed',
         'core/spacer',
-        'core/cover',
-        'core/html',
-        'core/video',
         'core/buttons',
         'core/button',
     ];
